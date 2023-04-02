@@ -1,0 +1,30 @@
+<script>
+MktoForms2.whenReady(function (form) {
+    // Code inside this function will execute when 'MktoForms2'
+    // has determined it is fully loaded
+
+    form.onSuccess(function(vals,tyurl){
+        // Code inside this function will execute when a 'MktoForms2'
+        // form is successfully submitted
+        analytics.identify(
+                vals.email, // User ID, using email adress
+                {
+                //Include your list of Marketo Form Values here; any traits you wish
+                //to append to this user in Segment.
+                mostRecentFormID : form.getId(),
+                },
+            function(){document.location.href = tyURL
+            } // Hit callback
+            )
+            analytics.track(
+                "Filled out form", // Event Name
+                {
+                //Include any additional Marketo Form Values or page information you with
+                //to append to this event here.
+                formID: form.getId(),
+                }
+            )
+        }
+    )
+})
+</script>
